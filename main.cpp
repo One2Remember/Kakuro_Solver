@@ -1,3 +1,34 @@
+//
+// Emmanuel Gallegos
+// 11/14/2019
+// Kakuro Solver (1st stable version)
+// Copyright 2019
+//
+// Solves up to a standard 10x10 kakuro board and prints solution if found
+// TAKES the filename of a single input file with initial board state
+// Input file format is as follows:
+//  1 line with N: integer value containing number of initial blank spaces
+//  N lines each containing: x and y coordinates of an initial blank space
+//    (coordinates start with 1,1 in the top left corner of the board)
+//  1 line with M: integer value of number of RULES (# of columns + # of rows)
+//  M lines each containing a RULE as follows:
+//
+//    'v' or 'h' to designate vertical rule or horizontal rule
+//    SPACE
+//    Sum of that row or column
+//    SPACE
+//    Coordinates of START point of rule (top most OR left most blank square)
+//    SPACE
+//    Length of row or column
+//
+//    EXAMPLE RULE: 'h 42 2 2 8' encodes a horizontal rule that states
+//      'The row beginning at 2,2 of length 8 sums to 42'
+//
+// A solution, if possible, will be found and printed to standard out
+// If no solution is possible, failure message will be printed to standard out
+//
+
+
 #include <iostream>
 #include <fstream>
 using std::cout;
@@ -13,16 +44,22 @@ int tryToPut( int, int, int, int[][10], RulesList & );
 
 ofstream fout( "output.txt" );
 
-int main()
+// takes input file of board as required cmd line arg
+int main( int argc, char *argv[] )
 {
-    int board[10][10];
-    char orient;
-    int numSpaces, numRules, tempX, tempY, sum, len;
-    RulesList myRules;
-    char place;
+    int board[10][10];  // for storing board
+    char orient,        // for maintaining orientation
+         place;         // for reading initial board state
+    int numRules, tempX, tempY, sum, len;    // temp holders
+    RulesList myRules;  // contains a list of kakuro rules
 
-    ifstream fin( "board2.txt" );
 
+    if( argc < 2 )  // check input parameter
+    {
+        cout << "Require input of board file" << endl;
+        return -1;
+    }
+    ifstream fin( argv[1] );    // attempt to open input file
     if( !fin )
     {
         cout << "Couldn't open board." << endl;
@@ -36,7 +73,7 @@ int main()
             board[i][j] = -1;
         }
     }
-    // populate the spaces
+    // populate the spaces according to input file
     for( int i = 0; i < 10; i++ )
     {
         for( int j = 0; j < 10; j++ )
@@ -45,26 +82,27 @@ int main()
             board[i][j] = place == 'x' ? -1 : 0;
         }
     }
+    // print starting board
     cout << "Starting board:\n" <<endl;
     PrintBoard( cout, board );
     cout << endl;
-    // acquire all rules
+    // acquire all rules from input file
     fin >> numRules;
+    // pass rule data to list of rules
     for( int i = 0; i < numRules; i++ )
     {
         fin >> orient >> sum >> tempY >> tempX >> len;
         myRules.addRule( orient, sum, tempY, tempX, len );
     }
     // attempt to solve the board
-
-    if( Solve( board, myRules ) )
+    if( Solve( board, myRules ) )   // if solved, print solution
     {
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << "Solved Board:\n" << endl;
         PrintBoard( cout, board );
     }
-    else
+    else    // else print no solution
     {
         cout << "No solution" << endl;
         return 1;
