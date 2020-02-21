@@ -2,7 +2,7 @@
 C++ Kakuro Solver
 
 ## Input
-1 Command Line argument encoding a single board (up to 10x10) as follows: 
+1 Command Line argument for input file encoding a single board (up to 10x10) as follows: 
 ``` 
   1 line with N: integer value containing number of initial blank spaces  
   N lines each containing: x and y coordinates of an initial blank space  
