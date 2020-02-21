@@ -3,7 +3,7 @@ C++ Kakuro Solver
 
 ## Input
 1 Command Line argument encoding a single board (up to 10x10) as follows: 
-  
+``` 
   1 line with N: integer value containing number of initial blank spaces  
   N lines each containing: x and y coordinates of an initial blank space  
     (coordinates start with 1,1 in the top left corner of the board)  
@@ -18,7 +18,7 @@ C++ Kakuro Solver
     Length of row or column   
     EXAMPLE RULE: 'h 42 2 2 8' encodes a horizontal rule that states   
       'The row beginning at 2,2 of length 8 sums to 42'   
-
+```
 ## To Run
 Simply download source and compile with C++ compiler of your choice (recommend GCC),  
 then run from cmd line with single argument (name of input file containing init board state)
@@ -27,5 +27,5 @@ then run from cmd line with single argument (name of input file containing init 
 ![Output](https://github.com/One2Remember/Kakuro_Solver/blob/master/Example_Output.PNG)
 
 ## New to Kakuro?
-[Link to Kakuro Wiki](https://en.wikipedia.org/wiki/Kakuro)
-[Link to Free Web Kakuro Game](https://www.kakuroconquest.com/)
+* [Link to Kakuro Wiki](https://en.wikipedia.org/wiki/Kakuro)
+* [Link to Free Web Kakuro Game](https://www.kakuroconquest.com/)
