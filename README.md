@@ -1,5 +1,5 @@
 # Kakuro_Solver
-C++ Kakuro Solver
+C++ Kakuro Solver, not for any class, just because I love Kakuro!
 
 ## Input
 1 Command Line argument for input file encoding a single board (up to 10x10) as follows: 
